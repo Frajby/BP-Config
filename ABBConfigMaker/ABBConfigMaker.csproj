@@ -55,9 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CfgEIO_SIGNAL.cs" />
+    <Compile Include="CfgRecord.cs" />
+    <Compile Include="CfgSYSSIG_IN.cs" />
+    <Compile Include="CfgSYSSIG_OUT.cs" />
     <Compile Include="MainChecker.cs" />
     <Compile Include="XFileChecker.cs" />
     <Compile Include="XFormatChecker.cs" />
+    <Compile Include="XReader.cs" />
+    <Compile Include="XRecord.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

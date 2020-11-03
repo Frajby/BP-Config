@@ -22,6 +22,7 @@ namespace ABBConfigMaker
     /// </summary>
     public partial class MainWindow : Window
     {
+        string path = string.Empty;
         public MainWindow()
         {
             InitializeComponent();
@@ -32,10 +33,18 @@ namespace ABBConfigMaker
             Loader loader = new Loader();
             if (loader.fileReady)
             {
+                path = loader.Path;
                 txt_loadedFile.Text = loader.Path;
             }
             
 
+
+        }
+
+        private void btn_MakeFile_Click(object sender, RoutedEventArgs e)
+        {
+            XReader xreader = new XReader(path);
+            xreader.Read();
         }
     }
 }
