@@ -20,11 +20,13 @@ namespace ABBConfigMaker
             if (ofd.ShowDialog() == true)
             {
                 Path = ofd.FileName;
+
                 MainChecker mainChecker = new MainChecker();
                 XFormatChecker formatChecker = new XFormatChecker(Path);
                 XFileChecker fileChecker = new XFileChecker(Path);
                 mainChecker.addChecker(formatChecker.check);
                 mainChecker.addChecker(fileChecker.check);
+
                 if (mainChecker.checkAll())
                 {
                     fileReady = false;

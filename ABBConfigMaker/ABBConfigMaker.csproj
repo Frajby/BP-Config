@@ -56,6 +56,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CfgEIO_SIGNAL.cs" />
+    <Compile Include="CfgLoader.cs" />
+    <Compile Include="CfgReader.cs" />
     <Compile Include="CfgRecord.cs" />
     <Compile Include="CfgSYSSIG_IN.cs" />
     <Compile Include="CfgSYSSIG_OUT.cs" />
