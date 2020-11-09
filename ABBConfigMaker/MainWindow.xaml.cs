@@ -43,8 +43,16 @@ namespace ABBConfigMaker
 
         private void btn_MakeFile_Click(object sender, RoutedEventArgs e)
         {
-            XReader xreader = new XReader(path);
-            xreader.Read();
+            //XReader xreader = new XReader(path);
+            //xreader.Read();
+
+            //CfgReader cfgReader = new CfgReader();
+        }
+
+        private void btn_loadFile_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            CfgLoader cfgloader = new CfgLoader();
+
         }
     }
 }

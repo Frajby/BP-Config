@@ -8,13 +8,13 @@ namespace ABBConfigMaker
 {
     class CfgEIO_SIGNAL : CfgRecord
     {
-        public string TypeOfRecord { get; } = "EIO_SIGNAL";
+        public override string TypeOfRecord { get; } = "EIO_SIGNAL";
         public string[] parametersNeeded { get; set; } = { "Name", "SignalType", "Device", "DeviceMap" };
 
         public Dictionary<string, string> parametersInCfg { get; }
-        public CfgEIO_SIGNAL(string[] lines)
+        public CfgEIO_SIGNAL(string line)
         {
-            parametersInCfg = mapFromCfg(lines, parametersNeeded);
+            parametersInCfg = mapFromCfg(line, parametersNeeded);
         }
 
         public override string ToCfgString()

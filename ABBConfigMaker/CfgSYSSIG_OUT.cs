@@ -11,14 +11,14 @@ namespace ABBConfigMaker
 {
     class CfgSYSSIG_OUT : CfgRecord
     {
-        public string TypeOfRecord { get; } = "SYSSIG_OUT";
+        public override string TypeOfRecord { get; } = "SYSSIG_OUT";
 
         public string[] parametersNeeded { get; set; } = { "Status", "Signal" };
         public Dictionary<string, string> parametersInCfg { get; }
 
-        public CfgSYSSIG_OUT(string[] lines)
+        public CfgSYSSIG_OUT(string line)
         {
-            parametersInCfg = mapFromCfg(lines, parametersNeeded);
+            parametersInCfg = mapFromCfg(line, parametersNeeded);
         }
 
         

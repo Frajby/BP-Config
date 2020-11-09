@@ -11,7 +11,7 @@
         <TextBox x:Name="txt_loadedFile" HorizontalAlignment="Left" Height="23" Margin="32,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="442" IsEnabled="False"/>
         <Button x:Name="btn_MakeFile" Content="Create Cfg File" HorizontalAlignment="Left" Margin="32,133,0,0" VerticalAlignment="Top" Width="114" Click="btn_MakeFile_Click"/>
         <TextBox x:Name="txt_cfgFile" HorizontalAlignment="Left" Height="23" Margin="32,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="442"/>
-        <Button x:Name="btn_loadFile_Copy" Content="Cfg File" HorizontalAlignment="Left" Margin="474,87,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="btn_loadFile_Click"/>
+        <Button x:Name="btn_loadFile_Copy" Content="Cfg File" HorizontalAlignment="Left" Margin="474,87,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="btn_loadFile_Copy_Click"/>
 
     </Grid>
 </Window>

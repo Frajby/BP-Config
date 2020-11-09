@@ -26,22 +26,89 @@ namespace ABBConfigMaker
             string currentType = string.Empty;
             string[] lines = readFileByLines();
             List<CfgRecord> Records = new List<CfgRecord>();
-           
-            while
-                if(lines[i] == "#" && lines[i+1] != null)
+
+            int lineCounter = 0;
+
+            while(lineCounter < lines.Length)
+            {
+                string line = lines[lineCounter];
+
+                if(line == "#" && lines[lineCounter + 1] != null)
                 {
+                    currentType = lines[lineCounter + 1];
+                }
+
+                if(line != "" && line.Contains('-'))
+                {
+                    string dataIn = string.Empty;
                     switch (currentType)
                     {
                         case "EIO_SIGNAL:":
-                            
+                            if (readNextLine(line))
+                            {
+                                dataIn = line + lines[lineCounter + 1];
+                                lineCounter += 2;
+                            }
+                            else
+                            {
+                                dataIn = line;
+                                lineCounter += 1;
+                            }
+                            Records.Add(new CfgEIO_SIGNAL(dataIn));
+                            break;
+
                         case "SYSSIG_OUT:":
+                            if (readNextLine(line))
+                            {
+                                dataIn = line + lines[lineCounter + 1];
+                                lineCounter += 2;
+                            }
+                            else
+                            {
+                                dataIn = line;
+                                lineCounter += 1;
+                            }
+                            Records.Add(new CfgSYSSIG_OUT(dataIn));
+                            break;
 
                         case "SYSSIG_IN:":
-
+                            if (readNextLine(line))
+                            {
+                                dataIn = line + lines[lineCounter + 1];
+                                lineCounter += 2;
+                            }
+                            else
+                            {
+                                dataIn = line;
+                                lineCounter += 1;
+                            }
+                            Records.Add(new CfgSYSSIG_IN(dataIn));
+                            break;
+                        default:
+                            lineCounter += 1;
+                            break;
                     }
                 }
+                else
+                {
+                    lineCounter += 1;
+                }
             }
+            
             return Records;
+        }
+
+        private bool readNextLine(string line)
+        {
+            char last = line[line.Length - 1];
+            if(last == '\\')    // \ has to be writen as \\
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

@@ -8,13 +8,13 @@ namespace ABBConfigMaker
 {
     class CfgSYSSIG_IN : CfgRecord
     {
-        public string TypeOfRecord { get; } = "SYSSIG_IN";
+        public override string TypeOfRecord { get; } = "SYSSIG_IN";
         public string[] parametersNeeded { get; set; } = { "Signal", "Action", "Arg1", "Arg2" };
         public Dictionary<string, string> parametersInCfg { get; }
 
-        public CfgSYSSIG_IN(string[] lines)
+        public CfgSYSSIG_IN(string line)
         {
-            parametersInCfg = mapFromCfg(lines, parametersNeeded);
+            parametersInCfg = mapFromCfg(line, parametersNeeded);
         }
 
         public override string ToCfgString()

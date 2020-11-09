@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
+using System.Windows;
 
 namespace ABBConfigMaker
 {
@@ -22,6 +23,9 @@ namespace ABBConfigMaker
                 {
                     Path = ofd.FileName;
                 }
+            CfgReader cfgreader = new CfgReader(Path);
+            List<CfgRecord> Records = cfgreader.mapCfgFile();
+
         }
 
 
