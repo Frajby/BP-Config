@@ -27,7 +27,8 @@ namespace ABBConfigMaker
                 
                 FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read);
                 IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-
+                excelReader.Close();
+                stream.Close();
             }
             catch (Exception e)
             {

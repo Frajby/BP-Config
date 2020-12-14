@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
+using ExcelDataReader;
+using System.IO;
 
-using System.Data.OleDb;
 
 namespace ABBConfigMaker
 {
@@ -19,10 +20,37 @@ namespace ABBConfigMaker
 
         public List<XRecord> Read()
         {
-            OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties=Excel 12.0;");
-            conn.Open();
-            conn.Close();
-            return new List<XRecord>();
+            FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read);
+            IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+
+            bool firstRow = true;
+
+            List<XRecord> records = new List<XRecord>();
+
+            while (excelReader.Read())
+            {
+                if(firstRow == true)
+                {
+                    firstRow = !firstRow;
+                }
+
+                if (!firstRow)
+                {
+                    XRecord xrec = new XRecord();
+                    xrec.Name = excelReader.GetString(0);
+                    xrec.Path = excelReader.GetString(1);
+                    xrec.DataType = excelReader.GetString(2);
+                    xrec.LogicalAddres = excelReader.GetString(3);
+                    xrec.Comment = excelReader.GetString(4);
+                    records.Add(xrec);
+                }
+
+            }
+
+            excelReader.Close();
+            stream.Close();
+
+            return records;
         }
         
     }
