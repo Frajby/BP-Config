@@ -70,6 +70,7 @@
     <Compile Include="XFormatChecker.cs" />
     <Compile Include="XReader.cs" />
     <Compile Include="XRecord.cs" />
+    <Compile Include="XToCfg.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

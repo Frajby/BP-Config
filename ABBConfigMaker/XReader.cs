@@ -29,12 +29,7 @@ namespace ABBConfigMaker
 
             while (excelReader.Read())
             {
-                if(firstRow == true)
-                {
-                    firstRow = !firstRow;
-                }
-
-                if (!firstRow)
+                if (firstRow == false)
                 {
                     XRecord xrec = new XRecord();
                     xrec.Name = excelReader.GetString(0);
@@ -43,6 +38,11 @@ namespace ABBConfigMaker
                     xrec.LogicalAddres = excelReader.GetString(3);
                     xrec.Comment = excelReader.GetString(4);
                     records.Add(xrec);
+                }
+
+                if (firstRow == true)
+                {
+                    firstRow = false;
                 }
 
             }

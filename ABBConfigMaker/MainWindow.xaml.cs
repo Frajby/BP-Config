@@ -43,7 +43,15 @@ namespace ABBConfigMaker
         private void btn_MakeFile_Click(object sender, RoutedEventArgs e)
         {
             XReader xreader = new XReader(path);
-            xreader.Read();
+            List<XRecord> readedRecords = xreader.Read();
+
+            string s = string.Empty;
+
+            foreach(XRecord rec in readedRecords)
+            {
+                s += rec.toCfgString();
+               
+            }
 
             //CfgReader cfgReader = new CfgReader();
         }
