@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CfgChecker.cs" />
     <Compile Include="CfgEIO_SIGNAL.cs" />
     <Compile Include="CfgLoader.cs" />
     <Compile Include="CfgReader.cs" />

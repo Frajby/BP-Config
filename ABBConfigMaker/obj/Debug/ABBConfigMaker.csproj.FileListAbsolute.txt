@@ -50,3 +50,7 @@ C:\Users\ills\Documents\BP\ABBConfigMaker\bin\Debug\ExcelDataReader.dll
 C:\Users\ills\Documents\BP\ABBConfigMaker\bin\Debug\ExcelDataReader.pdb
 C:\Users\ills\Documents\BP\ABBConfigMaker\bin\Debug\ExcelDataReader.xml
 C:\Users\ills\Documents\BP\ABBConfigMaker\obj\Debug\ABBConfigMaker.csproj.CopyComplete
+C:\Users\fbada\Documents\bp\Programy\BP-ABB\ABBConfigMaker\bin\Debug\ExcelDataReader.dll
+C:\Users\fbada\Documents\bp\Programy\BP-ABB\ABBConfigMaker\bin\Debug\ExcelDataReader.pdb
+C:\Users\fbada\Documents\bp\Programy\BP-ABB\ABBConfigMaker\bin\Debug\ExcelDataReader.xml
+C:\Users\fbada\Documents\bp\Programy\BP-ABB\ABBConfigMaker\obj\Debug\ABBConfigMaker.csproj.CopyComplete

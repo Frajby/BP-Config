@@ -24,6 +24,7 @@ namespace ABBConfigMaker
             string cfgString = "      ";
             cfgString += "-Name \"" + Name + "\" ";
             cfgString += "-SignalType ";
+
             if (isDI(Name))
                 cfgString += "\"DI\" ";
             else

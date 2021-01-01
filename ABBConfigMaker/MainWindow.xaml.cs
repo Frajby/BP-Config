@@ -21,7 +21,8 @@ namespace ABBConfigMaker
     /// </summary>
     public partial class MainWindow : Window
     {
-        string path = string.Empty;
+        string Xpath = string.Empty;
+        string CfgPath = string.Empty;  
         public MainWindow()
         {
             InitializeComponent();
@@ -29,10 +30,10 @@ namespace ABBConfigMaker
 
         private void btn_loadFile_Click(object sender, RoutedEventArgs e)
         {
-            Loader loader = new Loader();
+            Loader loader = new Loader(true);
             if (loader.fileReady)
             {
-                path = loader.Path;
+                Xpath = loader.Path;
                 txt_loadedFile.Text = loader.Path;
             }
             
@@ -42,8 +43,13 @@ namespace ABBConfigMaker
 
         private void btn_MakeFile_Click(object sender, RoutedEventArgs e)
         {
-            XReader xreader = new XReader(path);
+            XReader xreader = new XReader(Xpath);
             List<XRecord> readedRecords = xreader.Read();
+
+            CfgReader cfgReader = new CfgReader(CfgPath);
+            List<CfgRecord> cfgRecords = cfgReader.mapCfgFile();
+
+            //Zkontroovat duplicity jen u těch záznamů, které jsou jk v xlsx souboru tak v cfg souboru, což budou jen ty, které mají Device "PN_Internal_Device"
 
             string s = string.Empty;
 
@@ -58,7 +64,13 @@ namespace ABBConfigMaker
 
         private void btn_loadFile_Copy_Click(object sender, RoutedEventArgs e)
         {
-            CfgLoader cfgloader = new CfgLoader();
+            //zde ještě cfg checker
+            Loader cfgLoader = new Loader(false);
+            if (cfgLoader.fileReady)
+            {
+                CfgPath = cfgLoader.Path;
+                txt_cfgFile.Text = CfgPath;
+            }
 
         }
     }
