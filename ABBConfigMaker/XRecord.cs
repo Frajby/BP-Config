@@ -22,18 +22,25 @@ namespace ABBConfigMaker
         public string toCfgString()
         {
             string cfgString = "      ";
-            cfgString += "-Name \"" + Name + "\" ";
-            cfgString += "-SignalType ";
+            cfgString += "-Name \"" + Name + "\"";
+            cfgString += " -SignalType";
 
             if (isDI(Name))
-                cfgString += "\"DI\" ";
+                cfgString += " \"DI\"";
             else
-                cfgString += "\"DO\" ";
+                cfgString += " \"DO\"";
 
-            cfgString += "-Device ";
-            cfgString += "\"PN_Internal_Device\" ";
-            cfgString += "-DeviceMap ";
-            cfgString += "\"" + Comment.Replace(" - PN v robotu","") + "\"";
+            if((cfgString.Length + 29) >= 81)  //v cfg souboru se "zalamuje" text pomocí \ pravděpoobně když delka řádku přesáhne 81 => 29 znaků je Device položka
+            {
+                cfgString += "\\";
+                cfgString += "\r\n";
+                cfgString += "     ";
+            }
+
+            cfgString += " -Device";
+            cfgString += " \"PN_Internal_Device\"";
+            cfgString += " -DeviceMap";
+            cfgString += " \"" + Comment.Replace(" - PN v robotu","") + "\"";
 
             cfgString += "\r\n";
             cfgString += "\r\n";

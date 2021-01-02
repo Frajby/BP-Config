@@ -28,6 +28,13 @@ namespace ABBConfigMaker
             List<XRecord> updateXrec = getXrecordsToUpdate();
             List<XRecord> newXrec = getNewXrecords();
 
+            string xs = string.Empty;
+            foreach(XRecord update in updateXrec)
+            {
+                xs += update.toCfgString();
+
+            }
+
             string s = string.Empty;
 
             foreach(CfgRecord cfg in Cfgrecords)
@@ -51,7 +58,7 @@ namespace ABBConfigMaker
 
         }
         
-
+     
     
         private List<XRecord> getXrecordsToUpdate()
         {
