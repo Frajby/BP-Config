@@ -4,20 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
 
 namespace ABBConfigMaker
 {
     class CfgWriter
     {
+        public string Path { get; set; }
         public List<XRecord> Xrecords { get; set; }
         public List<CfgRecord> Cfgrecords { get; set; }
 
-        public CfgWriter(List<XRecord> Xrecords, List<CfgRecord> Cfgrecords)
+        public CfgWriter(List<XRecord> Xrecords, List<CfgRecord> Cfgrecords, string path)
         {
+            this.Path = path;
             this.Xrecords = Xrecords;
             this.Cfgrecords = Cfgrecords;
-
-
         }
 
         public void writeToCfg()
@@ -28,22 +29,25 @@ namespace ABBConfigMaker
             List<XRecord> updateXrec = getXrecordsToUpdate();
             List<XRecord> newXrec = getNewXrecords();
 
-            string xs = string.Empty;
-            foreach(XRecord update in updateXrec)
-            {
-                xs += update.toCfgString();
+            string[] linesArr = File.ReadAllLines(Path);
 
+            string linesFull = string.Empty;
+            foreach (string str in linesArr)
+            {
+                linesFull += str;
+                linesFull += "\r\n";
             }
 
-            string s = string.Empty;
-
-            foreach(CfgRecord cfg in Cfgrecords)
+            string updateCfgStr = string.Empty;
+            foreach (XRecord update in updateXrec)
             {
-                s += cfg.rawLine;
-                s += "\r\n\r\n";
+                updateCfgStr += update.toCfgString();
             }
 
-            MessageBox.Show(s);
+            string toUpdate = returnStringByTopic(linesArr, "EIO_SIGNAL");
+
+            linesFull.Replace(toUpdate, updateCfgStr);
+
 
 
         }
@@ -58,7 +62,35 @@ namespace ABBConfigMaker
 
         }
         
-     
+        private string returnStringByTopic(string[] lines,string topic)
+        {
+            bool topicFound = false;
+            bool topicEnd = false;
+            string retStr = string.Empty;
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (topicFound && topicEnd == false)
+                {
+                    retStr += lines[i];
+                }
+
+                if (lines[i].Contains(topic))
+                {
+                    topicFound = true;
+                }
+
+                if (topicFound) 
+                { 
+                    if (lines[i].Contains("#") || i == lines.Length)
+                    {
+                        topicEnd = true;
+                    }
+                }
+            }
+            
+            return retStr;
+        }
     
         private List<XRecord> getXrecordsToUpdate()
         {

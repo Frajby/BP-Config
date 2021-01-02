@@ -49,7 +49,7 @@ namespace ABBConfigMaker
             CfgReader cfgReader = new CfgReader(CfgPath);
             List<CfgRecord> cfgRecords = cfgReader.mapCfgFile();
 
-            CfgWriter writer = new CfgWriter(xrecords, cfgRecords);
+            CfgWriter writer = new CfgWriter(xrecords, cfgRecords,CfgPath);
             writer.writeToCfg();
 
             

@@ -46,7 +46,9 @@ namespace ABBConfigMaker
                         case "EIO_SIGNAL:":
                             if (readNextLine(line))
                             {
-                                dataIn = line + lines[lineCounter + 1];
+                                dataIn += line;
+                                dataIn += "\r\n";
+                                dataIn += lines[lineCounter + 1];
                                 lineCounter += 2;
                             }
                             else
