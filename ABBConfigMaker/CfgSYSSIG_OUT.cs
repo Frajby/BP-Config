@@ -13,8 +13,8 @@ namespace ABBConfigMaker
     {
         public override string TypeOfRecord { get; } = "SYSSIG_OUT";
 
-        public string[] parametersNeeded { get; set; } = { "Status", "Signal" };
-        public Dictionary<string, string> parametersInCfg { get; }
+        public override string[] parametersNeeded { get; set; } = { "Status", "Signal" };
+        public override Dictionary<string, string> parametersInCfg { get; }
 
         public CfgSYSSIG_OUT(string line)
         {

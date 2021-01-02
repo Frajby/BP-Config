@@ -44,20 +44,16 @@ namespace ABBConfigMaker
         private void btn_MakeFile_Click(object sender, RoutedEventArgs e)
         {
             XReader xreader = new XReader(Xpath);
-            List<XRecord> readedRecords = xreader.Read();
+            List<XRecord> xrecords = xreader.Read();
 
             CfgReader cfgReader = new CfgReader(CfgPath);
             List<CfgRecord> cfgRecords = cfgReader.mapCfgFile();
 
-            //Zkontroovat duplicity jen u těch záznamů, které jsou jk v xlsx souboru tak v cfg souboru, což budou jen ty, které mají Device "PN_Internal_Device"
+            CfgWriter writer = new CfgWriter(xrecords, cfgRecords);
+            writer.writeToCfg();
 
-            string s = string.Empty;
+            
 
-            foreach(XRecord rec in readedRecords)
-            {
-                s += rec.toCfgString();
-               
-            }
 
             //CfgReader cfgReader = new CfgReader();
         }

@@ -66,6 +66,7 @@
     <Compile Include="CfgRecord.cs" />
     <Compile Include="CfgSYSSIG_IN.cs" />
     <Compile Include="CfgSYSSIG_OUT.cs" />
+    <Compile Include="CfgWriter.cs" />
     <Compile Include="MainChecker.cs" />
     <Compile Include="XFileChecker.cs" />
     <Compile Include="XFormatChecker.cs" />
