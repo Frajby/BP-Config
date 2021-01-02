@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ABBConfigMaker
 {
@@ -27,6 +28,16 @@ namespace ABBConfigMaker
             List<XRecord> updateXrec = getXrecordsToUpdate();
             List<XRecord> newXrec = getNewXrecords();
 
+            string s = string.Empty;
+
+            foreach(CfgRecord cfg in Cfgrecords)
+            {
+                s += cfg.rawLine;
+                s += "\r\n\r\n";
+            }
+
+            MessageBox.Show(s);
+
 
         }
 
@@ -35,7 +46,13 @@ namespace ABBConfigMaker
 
         }
 
+        private void writeNewRecords(List<XRecord> xrec)
+        {
 
+        }
+        
+
+    
         private List<XRecord> getXrecordsToUpdate()
         {
             List<CfgRecord> CfgRecToCompare = getCfgRecordsByDevice("PN_Internal_Device");

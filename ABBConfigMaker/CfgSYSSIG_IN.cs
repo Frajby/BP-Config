@@ -12,8 +12,11 @@ namespace ABBConfigMaker
         public override string[] parametersNeeded { get; set; } = { "Signal", "Action", "Arg1", "Arg2" };
         public override Dictionary<string, string> parametersInCfg { get; }
 
+        public override string rawLine { get; set; }
+
         public CfgSYSSIG_IN(string line)
         {
+            rawLine = line;
             parametersInCfg = mapFromCfg(line, parametersNeeded);
         }
 

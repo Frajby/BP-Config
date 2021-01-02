@@ -13,9 +13,8 @@ namespace ABBConfigMaker
     {
         public abstract string ToCfgString();
         public abstract string TypeOfRecord { get; }
-
+        public abstract string rawLine { get; set; }
         public abstract Dictionary<string, string> parametersInCfg { get; }
-
         public abstract string[] parametersNeeded { get; set; }
 
         protected Dictionary<string,string> mapFromCfg(string line, string[] parametersNeeded)
