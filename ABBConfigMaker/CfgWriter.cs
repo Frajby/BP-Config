@@ -29,10 +29,21 @@ namespace ABBConfigMaker
             List<XRecord> updateXrec = getXrecordsToUpdate();
             List<XRecord> newXrec = getNewXrecords();
 
-            string[] linesArr = File.ReadAllLines(Path);
+            List<string> linesList = File.ReadAllLines(Path).ToList();
+            
+            int lastLineIndexofTopic = getIndexOfLastLineInTopic(linesList, "EIO_SIGNAL");
+
+            linesList.Add("");
+ 
+
+            for (int i = 0; i<newXrec.Count;i++)
+            {
+
+                linesList.Insert(lastLineIndexofTopic +2 + i, newXrec[i].toCfgString(true));
+            }
 
             string linesFull = string.Empty;
-            foreach (string str in linesArr)
+            foreach (string str in linesList)
             {
                 linesFull += str;
                 linesFull += "\r\n";
@@ -41,15 +52,14 @@ namespace ABBConfigMaker
             string updateCfgStr = string.Empty;
             foreach (XRecord update in updateXrec)
             {
-                updateCfgStr += update.toCfgString();
+                updateCfgStr += update.toCfgString(true);
             }
 
-            string toUpdate = returnStringByTopic(linesArr, "EIO_SIGNAL");
+            string toUpdate = returnStringByTopic(linesList, "EIO_SIGNAL");
 
             linesFull.Replace(toUpdate, updateCfgStr);
 
-
-
+            
         }
 
         private void updateCfgRecords(List<XRecord> xrecords)
@@ -62,13 +72,44 @@ namespace ABBConfigMaker
 
         }
         
-        private string returnStringByTopic(string[] lines,string topic)
+        private int getIndexOfLastLineInTopic(List<string> lines, string topic)
+        {
+            bool topicFound = false;
+            bool topicEnd = false;
+            int lastIndex = -1;
+
+            for (int i = 0; i < lines.Count; i++)
+            {
+                if (lines[i].Contains(topic))
+                {
+                    topicFound = true;
+                }
+
+                if (topicFound && !topicEnd)
+                {
+                   
+                    if (lines[i].Contains("#"))
+                    {
+                        lastIndex = i-1;
+                        topicEnd = true;
+                    }
+                    if (i == lines.Count - 1)
+                    {
+                        lastIndex = i;
+                        topicEnd = true;
+                    }
+                }
+            }
+            return lastIndex;
+        }
+
+        private string returnStringByTopic(List<string> lines,string topic)
         {
             bool topicFound = false;
             bool topicEnd = false;
             string retStr = string.Empty;
 
-            for (int i = 0; i < lines.Length; i++)
+            for (int i = 0; i < lines.Count; i++)
             {
                 if (topicFound && topicEnd == false)
                 {
@@ -82,7 +123,7 @@ namespace ABBConfigMaker
 
                 if (topicFound) 
                 { 
-                    if (lines[i].Contains("#") || i == lines.Length)
+                    if (lines[i].Contains("#") || i == lines.Count)
                     {
                         topicEnd = true;
                     }

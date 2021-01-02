@@ -19,7 +19,7 @@ namespace ABBConfigMaker
 
         }
 
-        public string toCfgString()
+        public string toCfgString(bool newLine)
         {
             string cfgString = "      ";
             cfgString += "-Name \"" + Name + "\"";
@@ -42,8 +42,11 @@ namespace ABBConfigMaker
             cfgString += " -DeviceMap";
             cfgString += " \"" + Comment.Replace(" - PN v robotu","") + "\"";
 
-            cfgString += "\r\n";
-            cfgString += "\r\n";
+            if (newLine)
+            {
+                cfgString += "\r\n";
+            }
+        
             return cfgString;
 
         }
