@@ -52,10 +52,7 @@ namespace ABBConfigMaker
             CfgWriter writer = new CfgWriter(xrecords, cfgRecords,CfgPath);
             writer.writeToCfg();
 
-            
-
-
-            //CfgReader cfgReader = new CfgReader();
+           
         }
 
         private void btn_loadFile_Copy_Click(object sender, RoutedEventArgs e)

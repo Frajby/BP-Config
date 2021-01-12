@@ -14,64 +14,97 @@ namespace ABBConfigMaker
         public List<XRecord> Xrecords { get; set; }
         public List<CfgRecord> Cfgrecords { get; set; }
 
+        private List<string> RawCfgFile;
+
         public CfgWriter(List<XRecord> Xrecords, List<CfgRecord> Cfgrecords, string path)
         {
             this.Path = path;
             this.Xrecords = Xrecords;
             this.Cfgrecords = Cfgrecords;
+            RawCfgFile = File.ReadAllLines(Path).ToList();
+            RawCfgFile.Add("");
         }
 
         public void writeToCfg()
         {
-            //neejprve se zapíšou ty x záznmy, které jsou nové z fce getNewXrecordToWrite, poté se vytahnou ty záznamy, které mají stejný jméno, a budou se aktualizovat
-            //asi nejlepší aktualizace bude vytáhnou všechny stringy, pak porovnávat a mazat nebo přepisovat (pomocí regexu?) a poté vymzat celý soubor a nahrát do něj nebo nějak tak
 
             List<XRecord> updateXrec = getXrecordsToUpdate();
             List<XRecord> newXrec = getNewXrecords();
 
-            List<string> linesList = File.ReadAllLines(Path).ToList();
-            
-            int lastLineIndexofTopic = getIndexOfLastLineInTopic(linesList, "EIO_SIGNAL");
+            insertXrecordsIntoTopic("EIO_SIGNAL", newXrec);
+            UpdateCfgRecords(updateXrec);
 
-            linesList.Add("");
- 
+            RewriteCfgFile();
+        }
 
-            for (int i = 0; i<newXrec.Count;i++)
+        private void RewriteCfgFile()
+        {
+            File.WriteAllText(Path, String.Empty);
+            TextWriter writer = new StreamWriter(Path);
+            foreach(string s in RawCfgFile)
             {
-
-                linesList.Insert(lastLineIndexofTopic +2 + i, newXrec[i].toCfgString(true));
+                writer.WriteLine(s);
             }
+        }
 
-            string linesFull = string.Empty;
-            foreach (string str in linesList)
+        private void UpdateCfgRecords(List<XRecord> records)
+        {
+
+            string Filelines = string.Empty;
+            foreach (string str in RawCfgFile)
             {
-                linesFull += str;
-                linesFull += "\r\n";
+                Filelines += str;
+                Filelines += "\r\n";
             }
-
             string updateCfgStr = string.Empty;
-            foreach (XRecord update in updateXrec)
+            foreach (XRecord record in records)
             {
-                updateCfgStr += update.toCfgString(true);
+                updateCfgStr += record.toCfgString(true);
             }
+            string toUpdate = returnStringsByTopic(RawCfgFile, "EIO_SIGNAL");
+            Filelines.Replace(toUpdate, updateCfgStr);
 
-            string toUpdate = returnStringByTopic(linesList, "EIO_SIGNAL");
+            string[] spliter = { "\r\n" };
+            RawCfgFile = Filelines.Split(spliter,System.StringSplitOptions.None).ToList();
 
-            linesFull.Replace(toUpdate, updateCfgStr);
-
-            
         }
 
-        private void updateCfgRecords(List<XRecord> xrecords)
+        private void insertXrecordsIntoTopic(string topic,List<XRecord> xrecords)
         {
+            if (isTopicExist(topic, RawCfgFile))
+            {
+                int lastLineIndexofTopic = getIndexOfLastLineInTopic(RawCfgFile, topic);
+                for (int i = 0; i < xrecords.Count; i++)
+                {
+                    RawCfgFile.Insert(lastLineIndexofTopic + 1 + i, xrecords[i].toCfgString(true));
+                }
+            }
+            else
+            {
+                RawCfgFile.Add("#");
+                RawCfgFile.Add(topic + ":");
+                RawCfgFile.Add("");
 
+                for (int i = 0; i < xrecords.Count; i++)
+                {
+                    RawCfgFile.Add(xrecords[i].toCfgString(true));
+                }
+            }
         }
 
-        private void writeNewRecords(List<XRecord> xrec)
+        private bool isTopicExist(string topic,List<string> lines)
         {
-
+            bool ret = false;
+            foreach(string line in lines)
+            {
+                if (line.Contains(topic))
+                {
+                    ret = true;
+                }
+            }
+            return ret;
         }
-        
+
         private int getIndexOfLastLineInTopic(List<string> lines, string topic)
         {
             bool topicFound = false;
@@ -103,7 +136,7 @@ namespace ABBConfigMaker
             return lastIndex;
         }
 
-        private string returnStringByTopic(List<string> lines,string topic)
+        private string returnStringsByTopic(List<string> lines,string topic)
         {
             bool topicFound = false;
             bool topicEnd = false;
