@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
-using Excel = Microsoft.Office.Interop.Excel;
+using ExcelDataReader;
+using System.IO;
+
 
 namespace ABBConfigMaker
 {
@@ -18,32 +20,37 @@ namespace ABBConfigMaker
 
         public List<XRecord> Read()
         {
-            Excel.Application xlApp = new Excel.Application();
-            Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(path);
-            Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
-            Excel.Range xlRange = xlWorksheet.UsedRange;
+            FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read);
+            IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
 
-            int rowCount = xlRange.Rows.Count;
-            int colCount = xlRange.Columns.Count;
+            bool firstRow = true;
 
-            List<XRecord> recordList = new List<XRecord>();
+            List<XRecord> records = new List<XRecord>();
 
-            for(int i = 2; i <= rowCount; i++)
+            while (excelReader.Read())
             {
-                if(xlRange.Cells[i] != null && xlRange.Cells[i].Value2 != null)
+                if (firstRow == false)
                 {
-                    XRecord record = new XRecord();
-                    record.Name = xlRange.Cells[i, 1].Value2;
-                    record.Path = xlRange.Cells[i, 2].Value2;
-                    record.DataType = xlRange.Cells[i, 3].Value2;
-                    record.LogicalAddres = xlRange.Cells[i, 4].Value2;
-                    record.Comment = xlRange.Cells[i, 5].Value2;
-                    recordList.Add(record);
+                    XRecord xrec = new XRecord();
+                    xrec.Name = excelReader.GetString(0);
+                    xrec.Path = excelReader.GetString(1);
+                    xrec.DataType = excelReader.GetString(2);
+                    xrec.LogicalAddres = excelReader.GetString(3);
+                    xrec.Comment = excelReader.GetString(4);
+                    records.Add(xrec);
                 }
+
+                if (firstRow == true)
+                {
+                    firstRow = false;
+                }
+
             }
-            xlWorkbook.Close();
-            xlApp.Quit();
-            return recordList;
+
+            excelReader.Close();
+            stream.Close();
+
+            return records;
         }
         
     }

@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Excel = Microsoft.Office.Interop.Excel;
+using System.Data.OleDb;
+using ExcelDataReader;
+using System.IO;
+
+using System.Data;
 
 namespace ABBConfigMaker
 {
@@ -16,11 +20,15 @@ namespace ABBConfigMaker
         }
         public override ErrorDataModel check()
         {
+   
             ErrorDataModel errorData = new ErrorDataModel();
             try
             {
-                Excel.Application xlapp = new Excel.Application();
-                Excel.Workbook xlworkbook = xlapp.Workbooks.Open(path);
+                
+                FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read);
+                IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                excelReader.Close();
+                stream.Close();
             }
             catch (Exception e)
             {

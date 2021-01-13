@@ -12,30 +12,60 @@ namespace ABBConfigMaker
     {
         public string Path { get; set; }
         public bool fileReady { get; }
-        public Loader()
+        public bool isXFile { get; set; }
+        public Loader(bool isXfile)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            this.isXFile = isXfile;
 
-            ofd.Filter = "xls files (*.xls *.xlsx)|*.xls;*.xlsx|All files (*.*)|*.*";
-            if (ofd.ShowDialog() == true)
+            if (isXFile)
             {
-                Path = ofd.FileName;
-
-                MainChecker mainChecker = new MainChecker();
-                XFormatChecker formatChecker = new XFormatChecker(Path);
-                XFileChecker fileChecker = new XFileChecker(Path);
-                mainChecker.addChecker(formatChecker.check);
-                mainChecker.addChecker(fileChecker.check);
-
-                if (mainChecker.checkAll())
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "xls files (*.xls *.xlsx)|*.xls;*.xlsx|All files (*.*)|*.*";
+                if (ofd.ShowDialog() == true)
                 {
-                    fileReady = false;
-                }
-                else
-                {
-                    fileReady = true;
+                    Path = ofd.FileName;
+
+                    MainChecker mainChecker = new MainChecker();
+                    XFormatChecker formatChecker = new XFormatChecker(Path);
+                    XFileChecker fileChecker = new XFileChecker(Path);
+                    mainChecker.addChecker(formatChecker.check);
+                    mainChecker.addChecker(fileChecker.check);
+
+                    if (mainChecker.checkAll())
+                    {
+                        fileReady = false;
+                    }
+                    else
+                    {
+                        fileReady = true;
+                    }
                 }
             }
+            else
+            {
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Filter = "cfg files (*.cfg)|*.cfg;|All files (*.*)|*.*";
+                if (ofd.ShowDialog() == true)
+                {
+                    Path = ofd.FileName;
+
+                    MainChecker mainChecker = new MainChecker();
+                    CfgChecker cfgCheck = new CfgChecker(Path);
+                    mainChecker.addChecker(cfgCheck.check);
+
+                    if (mainChecker.checkAll())
+                    {
+                        fileReady = false;
+                    }
+                    else
+                    {
+                        fileReady = true;
+                    }
+                }
+            }
+
+
+            
 
 
         }
