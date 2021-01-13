@@ -38,6 +38,7 @@ namespace ABBConfigMaker
             insertXrecordsIntoTopic("EIO_SIGNAL", newXrec);
             UpdateCfgRecords(updateXrec);
 
+
             RewriteCfgFile();
         }
 
