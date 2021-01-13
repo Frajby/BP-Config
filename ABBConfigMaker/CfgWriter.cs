@@ -16,6 +16,9 @@ namespace ABBConfigMaker
 
         private List<string> RawCfgFile;
 
+        public List<ErrorDataModel> errors;
+
+
         public CfgWriter(List<XRecord> Xrecords, List<CfgRecord> Cfgrecords, string path)
         {
             this.Path = path;
@@ -23,6 +26,7 @@ namespace ABBConfigMaker
             this.Cfgrecords = Cfgrecords;
             RawCfgFile = File.ReadAllLines(Path).ToList();
             RawCfgFile.Add("");
+            errors = new List<ErrorDataModel>();
         }
 
         public void writeToCfg()
@@ -37,35 +41,72 @@ namespace ABBConfigMaker
             RewriteCfgFile();
         }
 
+        public bool hasError()
+        {
+            bool ret = false;
+            foreach(ErrorDataModel err in errors)
+            {
+                if (err.isError)
+                {
+                    ret = true;
+                }
+            }
+            return ret;
+        }
+
+        public List<ErrorDataModel> Errors
+        {
+            get => errors;
+        }
+
         private void RewriteCfgFile()
         {
-            File.WriteAllText(Path, String.Empty);
-            TextWriter writer = new StreamWriter(Path);
-            foreach(string s in RawCfgFile)
+            try
             {
-                writer.WriteLine(s);
+                File.WriteAllText(Path, String.Empty);
+                TextWriter writer = new StreamWriter(Path);
+                foreach(string s in RawCfgFile)
+                {
+                    writer.WriteLine(s);
+                }
+            }
+            catch (Exception e)
+            {
+                ErrorDataModel err = new ErrorDataModel();
+                err.isError = true;
+                err.errorMessage = e.ToString();
+                errors.Add(err);
             }
         }
 
         private void UpdateCfgRecords(List<XRecord> records)
         {
-
-            string Filelines = string.Empty;
-            foreach (string str in RawCfgFile)
+            try
             {
-                Filelines += str;
-                Filelines += "\r\n";
-            }
-            string updateCfgStr = string.Empty;
-            foreach (XRecord record in records)
-            {
-                updateCfgStr += record.toCfgString(true);
-            }
-            string toUpdate = returnStringsByTopic(RawCfgFile, "EIO_SIGNAL");
-            Filelines.Replace(toUpdate, updateCfgStr);
+                string Filelines = string.Empty;
+                foreach (string str in RawCfgFile)
+                {
+                    Filelines += str;
+                    Filelines += "\r\n";
+                }
+                string updateCfgStr = string.Empty;
+                foreach (XRecord record in records)
+                {
+                    updateCfgStr += record.toCfgString(true);
+                }
+                string toUpdate = returnStringsByTopic(RawCfgFile, "EIO_SIGNAL");
+                Filelines.Replace(toUpdate, updateCfgStr);
 
-            string[] spliter = { "\r\n" };
-            RawCfgFile = Filelines.Split(spliter,System.StringSplitOptions.None).ToList();
+                string[] spliter = { "\r\n" };
+                RawCfgFile = Filelines.Split(spliter,System.StringSplitOptions.None).ToList();
+            }
+            catch (Exception e)
+            {
+                ErrorDataModel err = new ErrorDataModel();
+                err.isError = true;
+                err.errorMessage = e.ToString();
+                errors.Add(err);
+            }
 
         }
 

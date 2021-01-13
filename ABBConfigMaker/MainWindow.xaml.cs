@@ -50,9 +50,24 @@ namespace ABBConfigMaker
             List<CfgRecord> cfgRecords = cfgReader.mapCfgFile();
 
             CfgWriter writer = new CfgWriter(xrecords, cfgRecords,CfgPath);
+            
             writer.writeToCfg();
 
-           
+            if (writer.hasError())
+            {
+                string errMsg = string.Empty;
+                foreach(ErrorDataModel err in writer.Errors)
+                {
+                    errMsg += err.errorMessage;
+                    errMsg += "\n";
+                }
+                MessageBox.Show(errMsg);
+            }
+            else
+            {
+                MessageBox.Show("Config file has been succesfully updated");
+            }
+
         }
 
         private void btn_loadFile_Copy_Click(object sender, RoutedEventArgs e)
