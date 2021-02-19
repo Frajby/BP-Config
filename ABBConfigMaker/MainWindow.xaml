@@ -5,13 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ABBConfigMaker"
         mc:Ignorable="d"
-        Title="Config Maker" Height="256.5" Width="600">
-    <Grid>
-        <Button x:Name="btn_loadFile" Content="Load file" HorizontalAlignment="Left" Margin="474,34,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="btn_loadFile_Click"/>
-        <TextBox x:Name="txt_loadedFile" HorizontalAlignment="Left" Height="23" Margin="32,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="442" IsEnabled="False"/>
-        <Button x:Name="btn_MakeFile" Content="Create Cfg File" HorizontalAlignment="Left" Margin="32,153,0,0" VerticalAlignment="Top" Width="114" Click="btn_MakeFile_Click"/>
-        <TextBox x:Name="txt_cfgFile" HorizontalAlignment="Left" Height="23" Margin="32,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="442" IsEnabled="False"/>
-        <Button x:Name="btn_loadFile_Copy" Content="Cfg File" HorizontalAlignment="Left" Margin="474,87,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="btn_loadFile_Copy_Click"/>
+        Title="Config Maker" Height="499.5" Width="800">
+    <Grid Margin="0,0,2,0">
+        <Button x:Name="btn_loadFile" Content="Load xls file" HorizontalAlignment="Left" Margin="401,21,0,0" VerticalAlignment="Top" Width="91" Height="23" Click="btn_loadFile_Click"/>
+        <TextBox x:Name="txt_loadedFile" HorizontalAlignment="Left" Height="23" Margin="16,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" IsEnabled="False"/>
+        <Button x:Name="btn_MakeFile" Content="Create Cfg File" HorizontalAlignment="Left" Margin="659,374,0,0" VerticalAlignment="Top" Width="114" Click="btn_MakeFile_Click"/>
+        <TextBox x:Name="txt_cfgFile" HorizontalAlignment="Left" Height="23" Margin="16,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" IsEnabled="False"/>
+        <Button x:Name="btn_loadFile_Copy" Content="Load cfg File" HorizontalAlignment="Left" Margin="401,60,0,0" VerticalAlignment="Top" Width="91" Height="23" Click="btn_loadFile_Copy_Click"/>
+        <GroupBox Header="Options" HorizontalAlignment="Left" Height="83" Margin="513,10,0,0" VerticalAlignment="Top" Width="260">
+            <Grid HorizontalAlignment="Left" Height="63" Margin="0,-4,0,0" VerticalAlignment="Top" Width="258">
+                <RadioButton x:Name="radWriteUpdateAll" Content="Append new and update existng signals" HorizontalAlignment="Left" Margin="7,10,0,0" VerticalAlignment="Top" Height="20"/>
+                <RadioButton x:Name="radDeleteAndAdd" Content="Delete old and add new signals" HorizontalAlignment="Left" Height="17" Margin="7,25,0,0" VerticalAlignment="Top" Width="194"/>
+                <RadioButton x:Name="radSelect" Content="Select individually" HorizontalAlignment="Left" Margin="7,42,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </GroupBox>
 
     </Grid>
 </Window>

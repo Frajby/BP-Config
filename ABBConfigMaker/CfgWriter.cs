@@ -31,13 +31,11 @@ namespace ABBConfigMaker
 
         public void writeToCfg()
         {
-
             List<XRecord> updateXrec = getXrecordsToUpdate();
             List<XRecord> newXrec = getNewXrecords();
 
             insertXrecordsIntoTopic("EIO_SIGNAL", newXrec);
             UpdateCfgRecords(updateXrec);
-
 
             RewriteCfgFile();
         }
