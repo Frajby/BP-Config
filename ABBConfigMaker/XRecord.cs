@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ABBConfigMaker
 {
-    class XRecord
+    public class XRecord
     {
         public string Name { get; set; }
         public string Path { get; set; }

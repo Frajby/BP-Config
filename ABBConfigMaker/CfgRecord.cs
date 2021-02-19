@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace ABBConfigMaker
 {
-    abstract class CfgRecord
+    public abstract class CfgRecord
     {
         public abstract string ToCfgString();
         public abstract string TypeOfRecord { get; }
