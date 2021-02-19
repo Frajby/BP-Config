@@ -136,11 +136,12 @@ namespace ABBConfigMaker
 
             GridView xgrid = new GridView();
 
-            string[] xColumns = { "Name", "Path", "DataType", "Logical Addres", "Comment" };
+            string[] xColumns = { "Name", "Path", "DataType", "LogicalAddres", "Comment" };
             foreach(string s in xColumns)
             {
                 GridViewColumn gvc = new GridViewColumn();
                 gvc.Header = s;
+                gvc.DisplayMemberBinding = new Binding(s);
                 xgrid.Columns.Add(gvc);
             }
             lsvXls.View = xgrid;
@@ -148,9 +149,8 @@ namespace ABBConfigMaker
 
             foreach (XRecord xrec in xlsRecords)
             {
-                ListViewItem item = new ListViewItem();
-                item.Content = xrec.DataType;
-                lsvXls.Items.Add(xrec.Comment);
+                
+                lsvXls.Items.Add(xrec);
             }
         }
         private void loadCfgRecords()
