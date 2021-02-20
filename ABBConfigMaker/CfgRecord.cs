@@ -11,7 +11,6 @@ namespace ABBConfigMaker
 {
     public abstract class CfgRecord
     {
-        public abstract string ToCfgString();
         public abstract string TypeOfRecord { get; }
         public abstract string rawLine { get; set; }
         public abstract Dictionary<string, string> parametersInCfg { get; }

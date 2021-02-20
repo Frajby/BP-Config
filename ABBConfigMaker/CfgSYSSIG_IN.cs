@@ -20,9 +20,5 @@ namespace ABBConfigMaker
             parametersInCfg = mapFromCfg(line, parametersNeeded);
         }
 
-        public override string ToCfgString()
-        {
-            return null;
-        }
     }
 }

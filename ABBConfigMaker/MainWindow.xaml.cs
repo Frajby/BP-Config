@@ -145,18 +145,51 @@ namespace ABBConfigMaker
                 xgrid.Columns.Add(gvc);
             }
             lsvXls.View = xgrid;
-            
 
             foreach (XRecord xrec in xlsRecords)
             {
-                
                 lsvXls.Items.Add(xrec);
             }
         }
         private void loadCfgRecords()
         {
-            CfgReader cfgReader = new CfgReader(CfgPath);
-            cfgRecords = cfgReader.mapCfgFile();
+            CfgReader cfgreader = new CfgReader(CfgPath);
+            cfgRecords = cfgreader.mapCfgFile();
+
+            GridView xgrid = new GridView();
+
+            List<CfgRecord> eioSignals = new List<CfgRecord>();
+            foreach(CfgRecord cfgrec in cfgRecords)
+            {
+                if(cfgrec.TypeOfRecord == "EIO_SIGNAL")
+                {
+                    eioSignals.Add(cfgrec);
+                }
+            }
+
+            string[] cfgColumns = eioSignals[0].parametersNeeded;
+            foreach (string s in cfgColumns)
+            {
+                GridViewColumn gvc = new GridViewColumn();
+                gvc.Header = s;
+                gvc.DisplayMemberBinding = new Binding(s);
+                xgrid.Columns.Add(gvc);
+            }
+            lsvCfgLoaded.View = xgrid;
+
+            foreach (CfgRecord eioSignal in eioSignals)
+            {
+                EIO_Signal_ViewDataModel eio = new EIO_Signal_ViewDataModel();
+                eio.Name = eioSignal.parametersInCfg["Name"];
+                eio.SignalType = eioSignal.parametersInCfg["SignalType"];
+                eio.Device = eioSignal.parametersInCfg["Device"];
+                eio.DeviceMap = eioSignal.parametersInCfg["DeviceMap"];
+                eio.ReferencedRecord = eioSignal;
+                lsvCfgLoaded.Items.Add(eio);
+            }
         }
+
+
+      
     }
 }
