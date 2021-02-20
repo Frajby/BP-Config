@@ -14,6 +14,8 @@ namespace ABBConfigMaker
         public string LogicalAddres { get; set; }
         public string Comment { get; set; }
 
+        public bool isSelected { get; set; }
+
         public XRecord()
         {
 

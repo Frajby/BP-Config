@@ -16,6 +16,8 @@ namespace ABBConfigMaker
         public abstract Dictionary<string, string> parametersInCfg { get; }
         public abstract string[] parametersNeeded { get; set; }
 
+        public abstract XRecord XlsRecordTwin { get; set; }
+        
         protected Dictionary<string,string> mapFromCfg(string line, string[] parametersNeeded)
         {
             Dictionary<string, string> mapped = new Dictionary<string, string>();

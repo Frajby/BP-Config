@@ -18,12 +18,15 @@ namespace ABBConfigMaker
 
         public List<ErrorDataModel> errors;
 
+        public WritingOptions myOption;
 
-        public CfgWriter(List<XRecord> Xrecords, List<CfgRecord> Cfgrecords, string path)
+
+        public CfgWriter(List<XRecord> Xrecords, List<CfgRecord> Cfgrecords, string path, WritingOptions option)
         {
             this.Path = path;
             this.Xrecords = Xrecords;
             this.Cfgrecords = Cfgrecords;
+            this.myOption = option;
             RawCfgFile = File.ReadAllLines(Path).ToList();
             RawCfgFile.Add("");
             errors = new List<ErrorDataModel>();
@@ -31,13 +34,27 @@ namespace ABBConfigMaker
 
         public void writeToCfg()
         {
-            List<XRecord> updateXrec = getXrecordsToUpdate();
-            List<XRecord> newXrec = getNewXrecords();
+            if(myOption == WritingOptions.WRITE_UPDATE_ALL)
+            {
+                List<XRecord> updateXrec = getXrecordsToUpdate();
+                List<XRecord> newXrec = getNewXrecords();
 
-            insertXrecordsIntoTopic("EIO_SIGNAL", newXrec);
-            UpdateCfgRecords(updateXrec);
+                insertXrecordsIntoTopic("EIO_SIGNAL", newXrec);
+                UpdateCfgRecords(updateXrec);
 
-            RewriteCfgFile();
+                RewriteCfgFile();
+            }
+
+            if (myOption == WritingOptions.DELETE_OLD_ADD_NEW)
+            {
+
+            }
+
+            if (myOption == WritingOptions.SELECT_INV)
+            {
+
+            }
+
         }
 
         public bool hasError()

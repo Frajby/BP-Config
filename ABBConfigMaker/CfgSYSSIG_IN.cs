@@ -14,6 +14,7 @@ namespace ABBConfigMaker
 
         public override string rawLine { get; set; }
 
+        public override XRecord XlsRecordTwin { get; set; }
         public CfgSYSSIG_IN(string line)
         {
             rawLine = line;

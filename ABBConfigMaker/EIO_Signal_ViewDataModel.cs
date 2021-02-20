@@ -13,6 +13,7 @@ namespace ABBConfigMaker
         public string Device { get; set; }
         public string DeviceMap { get; set; }
 
-        public CfgRecord ReferencedRecord { get; set; }
+        public CfgRecord ReferenceCfgRecord { get; set; }
+        public XRecord ReferenceXlsRecord { get; set; }
     }
 }

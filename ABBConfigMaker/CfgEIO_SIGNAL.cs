@@ -13,6 +13,8 @@ namespace ABBConfigMaker
 
         public override string rawLine { get; set; }
 
+        public override XRecord XlsRecordTwin { get; set; } 
+
         public override Dictionary<string, string> parametersInCfg { get; }
         public CfgEIO_SIGNAL(string line)
         {

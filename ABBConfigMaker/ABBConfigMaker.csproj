@@ -68,6 +68,7 @@
     <Compile Include="CfgSYSSIG_OUT.cs" />
     <Compile Include="CfgWriter.cs" />
     <Compile Include="EIO_Signal_ViewDataModel.cs" />
+    <Compile Include="ListViewManager.cs" />
     <Compile Include="MainChecker.cs" />
     <Compile Include="XFileChecker.cs" />
     <Compile Include="XFormatChecker.cs" />

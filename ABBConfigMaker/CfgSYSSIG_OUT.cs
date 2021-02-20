@@ -16,6 +16,7 @@ namespace ABBConfigMaker
         public override string[] parametersNeeded { get; set; } = { "Status", "Signal" };
         public override Dictionary<string, string> parametersInCfg { get; }
         public override string rawLine { get; set; }
+        public override XRecord XlsRecordTwin { get; set; }
         public CfgSYSSIG_OUT(string line)
         {
             rawLine = line;

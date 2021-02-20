@@ -5,43 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ABBConfigMaker"
         mc:Ignorable="d"
-        Title="Config Maker" Height="499.5" Width="800" Loaded="Window_Loaded">
+        Title="Config Maker" Height="610.75" Width="1201" Loaded="Window_Loaded">
     <Grid Margin="0,0,2,0">
-        <Button x:Name="btn_loadFile" Content="Load xls file" HorizontalAlignment="Left" Margin="401,21,0,0" VerticalAlignment="Top" Width="91" Height="23" Click="btn_loadFile_Click"/>
-        <TextBox x:Name="txt_loadedFile" HorizontalAlignment="Left" Height="23" Margin="16,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" IsEnabled="False"/>
-        <Button x:Name="btn_MakeFile" Content="Create Cfg File" HorizontalAlignment="Left" Margin="659,411,0,0" VerticalAlignment="Top" Width="114" Click="btn_MakeFile_Click"/>
-        <TextBox x:Name="txt_cfgFile" HorizontalAlignment="Left" Height="23" Margin="16,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="385" IsEnabled="False"/>
-        <Button x:Name="btn_loadFile_Copy" Content="Load cfg File" HorizontalAlignment="Left" Margin="401,60,0,0" VerticalAlignment="Top" Width="91" Height="23" Click="btn_loadFile_Copy_Click"/>
-        <GroupBox Header="Options" HorizontalAlignment="Left" Height="83" Margin="513,10,0,0" VerticalAlignment="Top" Width="260">
+        <Button x:Name="btn_loadFile" Content="Load xls file" HorizontalAlignment="Left" Margin="726,21,0,0" VerticalAlignment="Top" Width="168" Height="23" Click="btn_loadFile_Click"/>
+        <TextBox x:Name="txt_loadedFile" HorizontalAlignment="Left" Height="23" Margin="16,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710" IsEnabled="False"/>
+        <Button x:Name="btn_MakeFile" Content="Create Cfg File" HorizontalAlignment="Left" Margin="1045,539,0,0" VerticalAlignment="Top" Width="114" Click="btn_MakeFile_Click"/>
+        <TextBox x:Name="txt_cfgFile" HorizontalAlignment="Left" Height="23" Margin="16,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710" IsEnabled="False"/>
+        <Button x:Name="btn_loadFile_Copy" Content="Load cfg File" HorizontalAlignment="Left" Margin="726,60,0,0" VerticalAlignment="Top" Width="168" Height="23" Click="btn_loadFile_Copy_Click"/>
+        <GroupBox Header="Options" HorizontalAlignment="Left" Height="83" Margin="899,10,0,0" VerticalAlignment="Top" Width="260">
             <Grid HorizontalAlignment="Left" Height="63" Margin="0,-4,0,0" VerticalAlignment="Top" Width="258">
                 <RadioButton x:Name="radWriteUpdateAll" Content="Append new and update existng signals" HorizontalAlignment="Left" Margin="7,10,0,0" VerticalAlignment="Top" Height="20" Checked="radWriteUpdateAll_Checked"/>
                 <RadioButton x:Name="radDeleteAndAdd" Content="Delete old and add new signals" HorizontalAlignment="Left" Height="17" Margin="7,25,0,0" VerticalAlignment="Top" Width="194" Checked="radDeleteAndAdd_Checked"/>
                 <RadioButton x:Name="radSelect" Content="Select individually" HorizontalAlignment="Left" Margin="7,42,0,0" VerticalAlignment="Top" Checked="radSelect_Checked"/>
             </Grid>
         </GroupBox>
-        <ListView x:Name="lsvXls" HorizontalAlignment="Left" Height="274" Margin="16,109,0,0" VerticalAlignment="Top" Width="224">
+        <ListView x:Name="lsvXls" HorizontalAlignment="Left" Height="425" Margin="16,109,0,0" VerticalAlignment="Top" Width="385">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="lsvCfgLoaded" HorizontalAlignment="Left" Height="274" Margin="245,109,0,0" VerticalAlignment="Top" Width="216">
+        <ListView x:Name="lsvCfgLoaded" HorizontalAlignment="Left" Height="425" Margin="406,109,0,0" VerticalAlignment="Top" Width="308">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="lsvCfgFinal" HorizontalAlignment="Left" Height="274" Margin="513,109,0,0" VerticalAlignment="Top" Width="260">
+        <ListView x:Name="lsvCfgFinal" HorizontalAlignment="Left" Height="425" Margin="764,109,0,0" VerticalAlignment="Top" Width="417">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btnAddRecord" Content="&gt;" HorizontalAlignment="Left" Margin="466,203,0,0" VerticalAlignment="Top" Width="40" Height="40" Click="btnAddRecord_Click"/>
-        <Button x:Name="btnRemoveRecord" Content="&lt;" HorizontalAlignment="Left" Margin="466,248,0,0" VerticalAlignment="Top" Width="40" Height="40"/>
+        <Button x:Name="btnAddRecord" Content="&gt;" HorizontalAlignment="Left" Margin="719,289,0,0" VerticalAlignment="Top" Width="40" Height="40" Click="btnAddRecord_Click"/>
+        <Button x:Name="btnRemoveRecord" Content="&lt;" HorizontalAlignment="Left" Margin="719,333,0,0" VerticalAlignment="Top" Width="40" Height="40" Click="btnRemoveRecord_Click"/>
 
     </Grid>
 </Window>
