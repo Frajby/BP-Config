@@ -269,5 +269,39 @@ namespace ABBConfigMaker
             }
             refreshListViews();
         }
+
+        private void SelectAllXls_Checked(object sender, RoutedEventArgs e)
+        {
+            lsvXls.SelectAll();
+        }
+
+        private void chckboxSelectAllCfg_Checked(object sender, RoutedEventArgs e)
+        {
+            lsvCfgLoaded.SelectAll();
+        }
+
+        private void SelectAllXls_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+            lsvXls.SelectedItems.Clear();
+            lsvXls.UnselectAll();
+         
+        }
+
+        private void chckboxSelectAllCfg_Unchecked(object sender, RoutedEventArgs e)
+        {
+            lsvCfgLoaded.SelectedItems.Clear();
+            lsvCfgLoaded.UnselectAll();
+        }
+
+        private void lsvXls_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+  
+        }
+
+        private void lsvCfgLoaded_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+       
+        }
     }
 }

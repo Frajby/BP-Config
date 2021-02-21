@@ -5,43 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ABBConfigMaker"
         mc:Ignorable="d"
-        Title="Config Maker" Height="610.75" Width="1201" Loaded="Window_Loaded">
+        Title="Config Maker" Height="749.5" Width="1280" Loaded="Window_Loaded">
     <Grid Margin="0,0,2,0">
         <Button x:Name="btn_loadFile" Content="Load xls file" HorizontalAlignment="Left" Margin="726,21,0,0" VerticalAlignment="Top" Width="168" Height="23" Click="btn_loadFile_Click"/>
-        <TextBox x:Name="txt_loadedFile" HorizontalAlignment="Left" Height="23" Margin="16,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710" IsEnabled="False"/>
-        <Button x:Name="btn_MakeFile" Content="Create Cfg File" HorizontalAlignment="Left" Margin="1045,539,0,0" VerticalAlignment="Top" Width="114" Click="btn_MakeFile_Click"/>
-        <TextBox x:Name="txt_cfgFile" HorizontalAlignment="Left" Height="23" Margin="16,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710" IsEnabled="False"/>
+        <TextBox x:Name="txt_loadedFile" HorizontalAlignment="Left" Height="23" Margin="16,21,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710" IsReadOnly="True"/>
+        <Button x:Name="btn_MakeFile" Content="Create Cfg File" HorizontalAlignment="Left" Margin="1146,682,0,0" VerticalAlignment="Top" Width="114" Click="btn_MakeFile_Click"/>
+        <TextBox x:Name="txt_cfgFile" HorizontalAlignment="Left" Height="23" Margin="16,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710" IsReadOnly="True"/>
         <Button x:Name="btn_loadFile_Copy" Content="Load cfg File" HorizontalAlignment="Left" Margin="726,60,0,0" VerticalAlignment="Top" Width="168" Height="23" Click="btn_loadFile_Copy_Click"/>
-        <GroupBox Header="Options" HorizontalAlignment="Left" Height="83" Margin="899,10,0,0" VerticalAlignment="Top" Width="260">
-            <Grid HorizontalAlignment="Left" Height="63" Margin="0,-4,0,0" VerticalAlignment="Top" Width="258">
-                <RadioButton x:Name="radWriteUpdateAll" Content="Append new and update existng signals" HorizontalAlignment="Left" Margin="7,10,0,0" VerticalAlignment="Top" Height="20" Checked="radWriteUpdateAll_Checked"/>
-                <RadioButton x:Name="radDeleteAndAdd" Content="Delete old and add new signals" HorizontalAlignment="Left" Height="17" Margin="7,25,0,0" VerticalAlignment="Top" Width="194" Checked="radDeleteAndAdd_Checked"/>
+        <GroupBox Header="Options" HorizontalAlignment="Left" Height="83" Margin="917,10,0,0" VerticalAlignment="Top" Width="332">
+            <Grid HorizontalAlignment="Left" Height="63" Margin="0,-4,0,0" VerticalAlignment="Top" Width="313">
+                <RadioButton x:Name="radWriteUpdateAll" Content="Append new xls and update existng cfg signals" HorizontalAlignment="Left" Margin="7,10,-27,0" VerticalAlignment="Top" Height="20" Checked="radWriteUpdateAll_Checked" Width="278"/>
+                <RadioButton x:Name="radDeleteAndAdd" Content="Delete old cfg and add new xls signals" HorizontalAlignment="Left" Height="17" Margin="7,25,0,0" VerticalAlignment="Top" Width="229" Checked="radDeleteAndAdd_Checked"/>
                 <RadioButton x:Name="radSelect" Content="Select individually" HorizontalAlignment="Left" Margin="7,42,0,0" VerticalAlignment="Top" Checked="radSelect_Checked"/>
             </Grid>
         </GroupBox>
-        <ListView x:Name="lsvXls" HorizontalAlignment="Left" Height="425" Margin="16,109,0,0" VerticalAlignment="Top" Width="385">
+        <ListView x:Name="lsvXls" HorizontalAlignment="Left" Height="559" Margin="17,118,0,0" VerticalAlignment="Top" Width="414" SelectionChanged="lsvXls_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="lsvCfgLoaded" HorizontalAlignment="Left" Height="425" Margin="406,109,0,0" VerticalAlignment="Top" Width="308">
+        <ListView x:Name="lsvCfgLoaded" HorizontalAlignment="Left" Height="559" Margin="436,118,0,0" VerticalAlignment="Top" Width="358" SelectionChanged="lsvCfgLoaded_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="lsvCfgFinal" HorizontalAlignment="Left" Height="425" Margin="764,109,0,0" VerticalAlignment="Top" Width="417">
+        <ListView x:Name="lsvCfgFinal" HorizontalAlignment="Left" Height="559" Margin="844,118,0,0" VerticalAlignment="Top" Width="417">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btnAddRecord" Content="&gt;" HorizontalAlignment="Left" Margin="719,289,0,0" VerticalAlignment="Top" Width="40" Height="40" Click="btnAddRecord_Click"/>
-        <Button x:Name="btnRemoveRecord" Content="&lt;" HorizontalAlignment="Left" Margin="719,333,0,0" VerticalAlignment="Top" Width="40" Height="40" Click="btnRemoveRecord_Click"/>
+        <Button x:Name="btnAddRecord" Content="&gt;" HorizontalAlignment="Left" Margin="799,351,0,0" VerticalAlignment="Top" Width="40" Height="40" Click="btnAddRecord_Click"/>
+        <Button x:Name="btnRemoveRecord" Content="&lt;" HorizontalAlignment="Left" Margin="799,395,0,0" VerticalAlignment="Top" Width="40" Height="40" Click="btnRemoveRecord_Click"/>
+        <Label Content="XLS signals:" HorizontalAlignment="Left" Margin="17,92,0,0" VerticalAlignment="Top"/>
+        <Label Content="Cfg signals in cfg file:" HorizontalAlignment="Left" Margin="436,92,0,0" VerticalAlignment="Top"/>
+        <Label Content="Signals to write:" HorizontalAlignment="Left" Margin="844,92,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="chckboxSelectAllCfg" Content="Select all" HorizontalAlignment="Left" Margin="436,682,0,0" VerticalAlignment="Top" Checked="chckboxSelectAllCfg_Checked" Unchecked="chckboxSelectAllCfg_Unchecked" RenderTransformOrigin="-3.754,0.333"/>
+        <CheckBox x:Name="SelectAllXls" Content="Select All" HorizontalAlignment="Left" Margin="16,682,0,0" VerticalAlignment="Top" Checked="SelectAllXls_Checked" Unchecked="SelectAllXls_Unchecked"/>
 
     </Grid>
 </Window>
