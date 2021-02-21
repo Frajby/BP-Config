@@ -18,12 +18,15 @@ namespace ABBConfigMaker
 
         public List<ErrorDataModel> errors;
 
+        public WritingOptions myOption;
 
-        public CfgWriter(List<XRecord> Xrecords, List<CfgRecord> Cfgrecords, string path)
+
+        public CfgWriter(List<XRecord> Xrecords, List<CfgRecord> Cfgrecords, string path, WritingOptions option)
         {
             this.Path = path;
             this.Xrecords = Xrecords;
             this.Cfgrecords = Cfgrecords;
+            this.myOption = option;
             RawCfgFile = File.ReadAllLines(Path).ToList();
             RawCfgFile.Add("");
             errors = new List<ErrorDataModel>();
@@ -31,13 +34,28 @@ namespace ABBConfigMaker
 
         public void writeToCfg()
         {
-            List<XRecord> updateXrec = getXrecordsToUpdate();
-            List<XRecord> newXrec = getNewXrecords();
+            if(myOption == WritingOptions.WRITE_UPDATE_ALL)
+            {
+                List<XRecord> updateXrec = getXrecordsToUpdate();
+                List<XRecord> newXrec = getNewXrecords();
 
-            insertXrecordsIntoTopic("EIO_SIGNAL", newXrec);
-            UpdateCfgRecords(updateXrec);
+                insertXrecordsIntoTopic("EIO_SIGNAL", newXrec);
+                UpdateCfgRecords(updateXrec);
+            }
 
+            if (myOption == WritingOptions.DELETE_OLD_ADD_NEW)
+            {
+                deleteSignalsInTopic("EIO_SIGNAL");
+                insertXrecordsIntoTopic("EIO_SIGNAL", Xrecords);
+            }
+
+            if (myOption == WritingOptions.SELECT_INV)
+            {
+                deleteSignalsInTopic("EIO_SIGNAL");
+                addCfgRecords(Cfgrecords, "EIO_SIGNAL");
+            }
             RewriteCfgFile();
+
         }
 
         public bool hasError()
@@ -68,6 +86,7 @@ namespace ABBConfigMaker
                 {
                     writer.WriteLine(s);
                 }
+                writer.Close();
             }
             catch (Exception e)
             {
@@ -187,6 +206,7 @@ namespace ABBConfigMaker
                 if (topicFound && topicEnd == false)
                 {
                     retStr += lines[i];
+                    retStr += "\r\n";
                 }
 
                 if (lines[i].Contains(topic))
@@ -265,6 +285,57 @@ namespace ABBConfigMaker
                 }
             }
             return retCfg;
+        }
+
+        private void deleteSignalsInTopic(string topic)
+        {
+            try
+            {
+                string Filelines = string.Empty;
+                foreach (string str in RawCfgFile)
+                {
+                    Filelines += str;
+                    Filelines += "\r\n";
+                }
+                string updateCfgStr = " ";
+               
+                string toUpdate = returnStringsByTopic(RawCfgFile, topic);
+                Filelines = Filelines.Replace(toUpdate, updateCfgStr);
+
+                string[] spliter = { "\r\n" };
+                RawCfgFile = Filelines.Split(spliter, System.StringSplitOptions.None).ToList();
+            }
+            catch (Exception e)
+            {
+                ErrorDataModel err = new ErrorDataModel();
+                err.isError = true;
+                err.errorMessage = e.ToString();
+                errors.Add(err);
+            }
+        }
+
+        private void addCfgRecords(List<CfgRecord> cfgRecords, string topic)
+        {
+            if (isTopicExist(topic, RawCfgFile))
+            {
+                int lastLineIndexofTopic = getIndexOfLastLineInTopic(RawCfgFile, topic);
+                for (int i = 0; i < cfgRecords.Count; i++)
+                {
+                    RawCfgFile.Insert(lastLineIndexofTopic + 1 + i, cfgRecords[i].rawLine + "\r\n");
+                    
+                }
+            }
+            else
+            {
+                RawCfgFile.Add("#");
+                RawCfgFile.Add(topic + ":");
+                RawCfgFile.Add("");
+
+                for (int i = 0; i < cfgRecords.Count; i++)
+                {
+                    RawCfgFile.Add(cfgRecords[i].rawLine);
+                }
+            }
         }
     }
 }

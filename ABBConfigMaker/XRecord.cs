@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace ABBConfigMaker
 {
-    class XRecord
+    public class XRecord
     {
         public string Name { get; set; }
         public string Path { get; set; }
         public string DataType { get; set; }
         public string LogicalAddres { get; set; }
         public string Comment { get; set; }
+
+        public bool isSelected { get; set; }
 
         public XRecord()
         {

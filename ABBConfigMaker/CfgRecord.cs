@@ -9,14 +9,15 @@ using System.Text.RegularExpressions;
 
 namespace ABBConfigMaker
 {
-    abstract class CfgRecord
+    public abstract class CfgRecord
     {
-        public abstract string ToCfgString();
         public abstract string TypeOfRecord { get; }
         public abstract string rawLine { get; set; }
         public abstract Dictionary<string, string> parametersInCfg { get; }
         public abstract string[] parametersNeeded { get; set; }
 
+        public abstract XRecord XlsRecordTwin { get; set; }
+        
         protected Dictionary<string,string> mapFromCfg(string line, string[] parametersNeeded)
         {
             Dictionary<string, string> mapped = new Dictionary<string, string>();
