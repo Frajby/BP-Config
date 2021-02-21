@@ -55,7 +55,17 @@ namespace ABBConfigMaker
         private void btn_MakeFile_Click(object sender, RoutedEventArgs e)
         {
 
-            CfgWriter writer = new CfgWriter(xlsRecords, cfgRecords,CfgPath,currentOption);
+            List<CfgRecord> cfgToWrite = new List<CfgRecord>();
+            if(cfgRecordsSelected.Count > 0)
+            {
+                cfgToWrite = cfgRecordsSelected;
+            }
+            else
+            {
+                cfgToWrite = cfgRecords;
+            }
+
+            CfgWriter writer = new CfgWriter(xlsRecords, cfgToWrite,CfgPath,currentOption);
             writer.writeToCfg();
 
             if (writer.hasError())
@@ -241,21 +251,17 @@ namespace ABBConfigMaker
                     {
                         xlsRecords.Add(cfgRecordsSelected[index].XlsRecordTwin);
                         toRemove.Add(cfgRecordsSelected[index]);
-                    
                     }
                     else
                     {
                         cfgRecords.Add(cfgRecordsSelected[index]);
                         toRemove.Add(cfgRecordsSelected[index]);
-                        
-
                     }
                 }
                 foreach(CfgRecord cfg in toRemove) 
                 {
                     cfgRecordsSelected.Remove(cfg);
                 }
-
             }
             else
             {
